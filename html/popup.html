@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Abhishek's AI form</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 10px;
+    }
+
+    label,
+    select,
+    input {
+      margin-bottom: 10px;
+      display: block;
+      font-size: 14px;
+    }
+
+    button {
+      padding: 10px;
+      font-size: 14px;
+    }
+
+    .checkbox {
+      display: inline-block;
+    }
+  </style>
+</head>
+
+<body>
+  <h2>Abhishek's AI form</h2>
+
+  <!-- Form for inputs -->
+  <form id="dataForm">
+
+    <label for="bearer_token">Bearer Token:</label>
+    <input type="password" id="bearer_token" name="bearer_token" placeholder="Enter Bearer Token">
+
+    <label for="temperature">Temperature (0 to 1): <span id="tempValue">0.0</span></label>
+    <!-- Slider updated to allow decimal steps (0.1) -->
+    <input type="range" id="temperature" name="temperature" min="0" max="1" step="0.1">
+
+    <label for="summary_type">Summary Type:</label>
+    <select id="summary_type" name="summary_type">
+      <option value="short">Short</option>
+      <option value="detailed">Detailed</option>
+    </select>
+
+    <label for="summary_format">Summary Format:</label>
+    <select id="summary_format" name="summary_format">
+      <option value="text">Text</option>
+      <option value="json">JSON</option>
+    </select>
+
+    <label for="model">Model:</label>
+    <select id="model" name="model">
+      <option value="">Loading models...</option>
+    </select>
+
+    <label for="cache_temperature_threshold">Cache Temperature Threshold (0 to 1): <span
+        id="cacheTempValue">0</span></label>
+    <input type="range" id="cache_temperature_threshold" name="cache_temperature_threshold" min="0" max="1" step="0.1">
+
+    <label class="checkbox">
+      <input type="checkbox" id="process_image" name="process_image"> Process Image
+    </label>
+
+    <label class="checkbox">
+      <input type="checkbox" id="override_cache" name="override_cache"> Override Cache
+    </label>
+
+    <button type="button" id="submitButton">Submit</button>
+  </form>
+
+  <!-- Link to external JavaScript -->
+  <script src="../js/popup.js"></script>
+</body>
+
+</html>

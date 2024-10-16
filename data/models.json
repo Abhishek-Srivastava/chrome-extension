@@ -1,0 +1,16 @@
+{
+    "models": [
+        {
+            "model_name": "model_a",
+            "deployment_id": "Model A"
+        },
+        {
+            "model_name": "model_b",
+            "deployment_id": "Model B"
+        },
+        {
+            "model_name": "model_c",
+            "deployment_id": "Model C"
+        }
+    ]
+}
