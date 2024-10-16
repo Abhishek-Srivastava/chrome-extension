@@ -5,12 +5,22 @@
     "description": "Extension to read a webpage source code",
     "permissions": [
         "activeTab",
-        "scripting"
+        "scripting",
+        "storage",
+        "notifications",
+        "clipboardWrite"
     ],
+    "background": {
+        "service_worker": "js/background.js"
+    },
     "icons": {
         "48": "icons/orange.png"
     },
     "action": {
-        "default_popup": "popup.html"
-    }
+        "default_popup": "html/popup.html"
+    },
+    "web_accessible_resources": [{
+      "resources": ["html/response.html", "js/response.js"],
+      "matches": ["<all_urls>"]
+    }]
 }
