@@ -17,9 +17,10 @@ h2 {
     padding: 15px;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    max-height: 300px;
+    /* max-height: 300px; */
     overflow-y: auto; /* Scroll vertically if the content overflows */
     word-wrap: break-word; /* Ensure long words wrap within the box */
+    font-size: large;
 }
 
 pre {
