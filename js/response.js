@@ -1,6 +1,6 @@
 // response.js
 document.addEventListener('DOMContentLoaded', function() {
-    // Get the response data from local storage
+    //Get the response data from local storage
     chrome.storage.local.get('lastResponse', function(result) {
         const responseContent = JSON.stringify(result.lastResponse, null, 2);
         document.getElementById('responseContent').textContent = responseContent;
