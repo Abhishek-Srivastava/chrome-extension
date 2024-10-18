@@ -1,4 +1,17 @@
 document.addEventListener('DOMContentLoaded', function () {
+
+     // Toggle settings visibility
+     document.getElementById('toggleSettings').addEventListener('click', function () {
+        const settingsFields = document.getElementById('settingsFields');
+        if (settingsFields.style.display === 'none') {
+            settingsFields.style.display = 'block';
+            this.innerHTML = 'Settings &#9650;'; // Change the arrow to point up
+        } else {
+            settingsFields.style.display = 'none';
+            this.innerHTML = 'Settings &#9660;'; // Change the arrow to point down
+        }
+    });
+
     // Update temperature slider
     const temperatureSlider = document.getElementById('temperature');
     const tempValueDisplay = document.getElementById('tempValue');
@@ -14,7 +27,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     // Load model data from a static file (models.json)
-    fetch(chrome.runtime.getURL('data/models.json'))
+    fetch(chrome.runtime.getURL('data/config.json'))
         .then(response => response.json())
         .then(data => {
             const modelSelect = document.getElementById('model');
@@ -83,10 +96,9 @@ document.addEventListener('DOMContentLoaded', function () {
                 action: 'makeRestCall',
                 token: bearerToken,
                 body: payload,
-            }, function (response) {
-                // Optional: Handle the response here (e.g., notify success)
-                console.log('Message sent to background script');
             });
+            window.close();
+                console.log('Message sent to background script');
         })
     });
 
