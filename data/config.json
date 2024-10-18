@@ -12,5 +12,6 @@
             "model_name": "model_c",
             "deployment_id": "Model C"
         }
-    ]
+    ],
+    "apiUrl": "http://localhost:5000/api/submit"
 }
