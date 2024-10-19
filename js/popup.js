@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', function () {
 
-     // Toggle settings visibility
-     document.getElementById('toggleSettings').addEventListener('click', function () {
+    // Toggle settings visibility
+    document.getElementById('toggleSettings').addEventListener('click', function () {
         const settingsFields = document.getElementById('settingsFields');
         if (settingsFields.style.display === 'none') {
             settingsFields.style.display = 'block';
@@ -62,8 +62,10 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
+    const spinner = document.getElementById('loading-spinner');
+    const submitButton = document.getElementById('submitButton')
     // Handle form submission and REST call
-    document.getElementById('submitButton').addEventListener('click', function () {
+    submitButton.addEventListener('click', function () {
         // Collect form data
         const temperature = document.getElementById('temperature').value;
         const summaryType = document.getElementById('summary_type').value;
@@ -73,6 +75,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const processImage = document.getElementById('process_image').checked;
         const overrideCache = document.getElementById('override_cache').checked;
         const bearerToken = document.getElementById('bearer_token').value;
+
         payload = {}
         getSourceCodeOfActiveTab(function (sourceCode) {
             // Prepare the data payload
@@ -92,13 +95,38 @@ document.addEventListener('DOMContentLoaded', function () {
             // Make the REST call (using fetch API)
             console.log('Payload to send:', payload);
             // Send a message to the background script to perform the REST call
+            submitButton.disabled = true;
+            submitButton.textContent = 'Summarizing...';
+            spinner.style.display = 'block';
             chrome.runtime.sendMessage({
                 action: 'makeRestCall',
                 token: bearerToken,
                 body: payload,
+            }, function (response) {
+                // Handle the response from background.js
+                console.log("call back to pop.js: ", response)
+                if (response && response.success) {
+                    console.log('Success:', response.data);
+                    // Store the response in local storage
+                    chrome.storage.local.set({ lastResponse: response.data }, function () {
+                        // Open the response.html page
+                        chrome.tabs.create({ url: chrome.runtime.getURL('../html/response.html') });
+                    });
+                } else if (response) {
+                    console.log('Error:', response);
+                    // Re-enable the submit button and hide the spinner after response
+                    submitButton.disabled = false;
+                    submitButton.textContent = 'Submit';
+                    spinner.style.display = 'none';
+                    //alert('Error occurred: ' + response.data); 
+                    // Store the response in local storage
+                    chrome.storage.local.set({ lastResponse: response.data }, function () {
+                        // Open the response.html page
+                        chrome.tabs.create({ url: chrome.runtime.getURL('../html/response.html') });
+                    }); // Example: display the error
+                }
             });
-            window.close();
-                console.log('Message sent to background script');
+            console.log('Message sent to background script');
         })
     });
 
