@@ -1,6 +1,7 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 import traceback
+import time
 
 # Initialize the Flask app
 app = Flask(__name__)
@@ -30,7 +31,7 @@ def submit_text():
             'message': 'Text content received successfully!',
             'received_text': text_content
         }
-
+        time.sleep(5)
         return jsonify(response), 200
     except Exception as e:
         print(traceback.format_exc())
