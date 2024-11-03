@@ -1,0 +1,9 @@
+{
+  "devDependencies": {
+    "webpack": "^5.96.1",
+    "webpack-cli": "^5.1.4"
+  },
+  "dependencies": {
+    "docx": "^9.0.2"
+  }
+}
